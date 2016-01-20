@@ -1,0 +1,49 @@
+---
+title: "Bechdeltest API Interface"
+author: "AndSpi"
+date: "19. Jänner 2016"
+output: html_document
+---
+
+
+## Aim
+The aim of this piece of software is to provide an interface between [Bechdeltest.com](http://bechdeltest.com) and the R programming language, so that statistical analysis is possible there. 
+
+In a nutshell, the Bechdeltest provides a quite simple criterion to say whether a film represents women as people independent of their relation to men. It is a very low bar and its simplicity makes it a great criterion with which to do large-scale cultural studies.
+
+
+## Idea
+The inspiration to do this comes from the interactive analysis provided at [Polygraph](http://poly-graph.co/bechdel).  
+They disclose their methodology:
+> first we scraped every film from bechdeltest.com. Then we looked at the release year using IMDB, filtering out anything before 1995. From there, we grabbed the producer, director, and writer via IMDB’s cast info. We ignored inconsequential producers (e.g., line producers) or writers (e.g., character writers). Then came the fun part: we used IMDB bios to gender tag producers, writers, and directors based on frequently occurring pronouns. This wasn’t perfect, since films like Her create false positives. From there, we assigned gender based on first name (e.g., Michaels = “male”). This left about 8% of the data without any gender tagging, which unfortunately throws off the data slightly. 
+
+
+## External Resources
+1. The primary resource is Bechdeltest.com (BT)
+  1. The data is stored in a MySQL database and served using a CGI::Application Perl script. An API is available.
+  2. A documentation of its API can be found at `http://bechdeltest.com/api/va/doc`.
+    1. All calls follow the form `http://bechdeltest.com/api/v1/method?params`
+    2. `getMovieByImbdId?imdbid=xxxxx` returns a JSON object with the Info on that film
+    3. `getMoviesByTitle?title=xxxxx` returns a JSON array with the Info on all films matching the search string in the title field
+    4. `getAllMovieIds` returns a JSON array with IDs of all films in the db (both BTid and the IMDBid).
+  3. All Movies can be viewed via `http://bechdeltest.com/view/BTid`
+  4. Graphs for basic statistics are provided here http://bechdeltest.com/statistics/  
+  
+2. A good introduction to the Bechdeltest and its significance is the respective [feminist frequency video](http://feministfrequency.com/2009/12/07/the-bechdel-test-for-women-in-movies/)
+  
+3. A secondary sources would be the IMDB
+  1. They allow some access, but only via ftp plain text data. No scraping allowed: http://www.imdb.com/help/search?domain=helpdesk_faq&index=1&file=usedatasoftware&ref_=hlp_sr_1
+  2. Data is available at a [FU-Berlin Mirror](ftp://ftp.fu-berlin.de/pub/misc/movies/database/)
+  3. An undocumented API is available via URL [as discussed on stackoverflow.](http://stackoverflow.com/questions/1966503/does-imdb-provide-an-api#7744369)
+  
+  
+## Internal Resources
+1. A script to download the full movie id list from BT and prepare it for use in R: _BechdelIndex.R_
+  + This script uses the "httr" package for GET and "jsonlite" for transcoding of the data.
+2. A local copy of that data: _bechind.csv_
+3. A script to augment the index with the other data available at BC.
+
+## DOTOs
+1. The major question is what kind of analysis should be possible, because depending on the question the data collected from BT will have to be augmented with data from the IMDB or other sources. 
+2. If the IMDB data is used, an automated dl script is needed.
+3. 

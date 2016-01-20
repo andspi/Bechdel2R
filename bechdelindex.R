@@ -13,5 +13,8 @@ Bechdeltest_index_to_DF <- function(){
   bech_index_DF <- fromJSON(content(bech_index_resp, as="text"))
   head(bech_index_DF)
   
+  # write to local csv
+  write.csv(bech_index_DF, file="BechInd.csv", row.names = F)
+  
   
 }
