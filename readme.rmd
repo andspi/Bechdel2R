@@ -21,17 +21,17 @@ They disclose their methodology:
 ## External Resources
 1. The primary resource is Bechdeltest.com (BT)
   1. The data is stored in a MySQL database and served using a CGI::Application Perl script. An API is available.
-  2. A documentation of its API can be found at `http://bechdeltest.com/api/va/doc`.
+  2. A documentation of its API can be found at (http://bechdeltest.com/api/v1/doc).
     1. All calls follow the form `http://bechdeltest.com/api/v1/method?params`
     2. `getMovieByImbdId?imdbid=xxxxx` returns a JSON object with the Info on that film
     3. `getMoviesByTitle?title=xxxxx` returns a JSON array with the Info on all films matching the search string in the title field
     4. `getAllMovieIds` returns a JSON array with IDs of all films in the db (both BTid and the IMDBid).
   3. All Movies can be viewed via `http://bechdeltest.com/view/BTid`
-  4. Graphs for basic statistics are provided here http://bechdeltest.com/statistics/  
+  4. Graphs for basic statistics are provided here (http://bechdeltest.com/statistics/)   
   
 2. A good introduction to the Bechdeltest and its significance is the respective [feminist frequency video](http://feministfrequency.com/2009/12/07/the-bechdel-test-for-women-in-movies/)
   
-3. A secondary sources would be the IMDB
+3. A secondary source will probably be the IMDB
   1. They allow some access, but only via ftp plain text data. No scraping allowed: http://www.imdb.com/help/search?domain=helpdesk_faq&index=1&file=usedatasoftware&ref_=hlp_sr_1
   2. Data is available at a [FU-Berlin Mirror](ftp://ftp.fu-berlin.de/pub/misc/movies/database/)
   3. An undocumented API is available via URL [as discussed on stackoverflow.](http://stackoverflow.com/questions/1966503/does-imdb-provide-an-api#7744369)
